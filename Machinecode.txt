@@ -1,0 +1,262 @@
+Practical 3: Add Two User-Entered Numbers
+Assembly
+INP
+STA NUM1
+INP
+ADD NUM1
+OUT
+HLT
+
+NUM1: .data 2 0
+Practical 4: Subtract Two User-Entered Numbers (NUM1 - NUM2 using 2's complement)
+Assembly
+INP
+STA NUM2
+INP
+CMA
+INC
+ADD NUM2
+OUT
+HLT
+
+NUM2: .data 2 0
+Practical 5: Logical Operations on Two User-Entered Numbers
+5(i). AND
+Assembly
+INP
+STA A
+INP
+AND A
+OUT
+HLT
+
+A: .data 2 0
+5(ii). OR
+Assembly
+INP
+CMA
+STA NOT_A
+INP
+CMA
+AND NOT_A
+CMA
+OUT
+HLT
+
+NOT_A: .data 2 0
+5(iii). NOT (on one user-entered number)
+Assembly
+INP
+CMA
+OUT
+HLT
+5(iv). XOR
+Assembly
+INP
+STA A
+INP
+STA B
+CMA
+AND A
+CMA
+STA TEMP
+LDA A
+CMA
+AND B
+CMA
+AND TEMP
+CMA
+OUT
+HLT
+
+A:    .data 2 0
+B:    .data 2 0
+TEMP: .data 2 0
+5(v). NOR
+Assembly
+INP
+CMA
+STA NOT_A
+INP
+CMA
+AND NOT_A
+OUT
+HLT
+
+NOT_A: .data 2 0
+5(vi). NAND
+Assembly
+INP
+STA A
+INP
+AND A
+CMA
+OUT
+HLT
+
+A: .data 2 0
+Practical 6: Simulate Memory-Reference Instructions (ADD, LDA, STA, BUN, ISZ)
+6(i). ADD
+Assembly
+LDA VAL1
+ADD VAL2
+OUT
+HLT
+
+VAL1: .data 2 7
+VAL2: .data 2 5
+6(ii). LDA
+Assembly
+LDA VAL1
+OUT
+HLT
+
+VAL1: .data 2 42
+6(iii). STA
+Assembly
+INP
+STA SAVED
+LDA SAVED
+OUT
+HLT
+
+SAVED: .data 2 0
+6(iv). BUN
+Assembly
+LDA A
+BUN SKIP_B
+LDA B
+SKIP_B: OUT
+HLT
+
+A: .data 2 10
+B: .data 2 99
+6(v). ISZ
+Assembly
+LOOP: ISZ CNT
+      BUN LOOP
+      LDA DONE_VAL
+      OUT
+      HLT
+
+CNT:      .data 2 -3
+DONE_VAL: .data 2 1
+Practical 7: Register-Reference Instructions (CLA, CMA, CME, HLT)
+7(i). CLA
+Assembly
+INP
+CLA
+OUT
+HLT
+7(ii). CMA
+Assembly
+INP
+CMA
+OUT
+HLT
+7(iii). CME
+Assembly
+CME
+HLT
+7(iv). HLT
+Assembly
+INP
+OUT
+HLT
+Practical 8: Register-Reference Instructions (INC, SPA, SNA, SZE)
+8(i). INC
+Assembly
+INP
+INC
+OUT
+HLT
+8(ii). SPA (skips next instruction if AC > 0)
+Assembly
+INP
+SPA
+BUN NOT_POS
+LDA IS_POS
+OUT
+HLT
+
+NOT_POS: LDA NOT_POS_VAL
+         OUT
+         HLT
+
+IS_POS:      .data 2 1
+NOT_POS_VAL: .data 2 0
+8(iii). SNA (skips next instruction if AC < 0)
+Assembly
+INP
+SNA
+BUN NOT_NEG
+LDA IS_NEG
+OUT
+HLT
+
+NOT_NEG: LDA NOT_NEG_VAL
+         OUT
+         HLT
+
+IS_NEG:      .data 2 1
+NOT_NEG_VAL: .data 2 0
+8(iv). SZE (skips next instruction if AC == 0)
+Assembly
+INP
+SZE
+BUN NOT_ZERO
+LDA IS_ZERO
+OUT
+HLT
+
+NOT_ZERO: LDA NOT_ZERO_VAL
+          OUT
+          HLT
+
+IS_ZERO:      .data 2 1
+NOT_ZERO_VAL: .data 2 0
+Practical 9: Shift Instructions (CIR, CIL)
+9(i). CIR
+Assembly
+INP
+CIR
+OUT
+HLT
+9(ii). CIL
+Assembly
+INP
+CIL
+OUT
+HLT
+Practical 10: Sum Integers Until a Negative Number Is Read (Exclude Negative)
+Assembly
+LOOP: INP
+      SNA
+      BUN ADD_NUM
+      BUN DONE
+
+ADD_NUM: ADD SUM
+         STA SUM
+         BUN LOOP
+
+DONE: LDA SUM
+      OUT
+      HLT
+
+SUM: .data 2 0
+Practical 11: Sum Integers Until 0 Is Read
+Assembly
+LOOP: INP
+      SZA
+      BUN ADD_NUM
+      BUN DONE
+
+ADD_NUM: ADD SUM
+         STA SUM
+         BUN LOOP
+
+DONE: LDA SUM
+      OUT
+      HLT
+
+SUM: .data 2 0
